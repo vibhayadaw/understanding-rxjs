@@ -15,3 +15,74 @@ const myObservable = Observable.create((observer) => {
   }, 3000);
 });
 myObservable.subscribe(o => console.log(o));
+
+
+/**
+ * Even if immediately resolved, the Promise is always asynchronous. 
+ * As a result, the then method’s callback will be added to the microtasks 
+ * queue which will be processed after the current macrotask completion:
+ */
+
+const welcomePromise = new Promise(resolve => {
+  console.log("In Promise executor fn");
+
+  resolve("Welcome!");
+});
+
+console.log("Before calling the then method");
+
+welcomePromise.then(console.log);
+
+console.log("After calling the then method");
+
+// console output:
+// In Promise executor fn
+// Before calling the then method
+// After calling the then method
+// Welcome!
+
+/** asynchronous Observables */
+
+const asyncWelcomeObservable$ = new Observable(observer => {
+  console.log("In Observable producer fn");
+
+  setTimeout(() => {
+    observer.next("Welcome!");
+    observer.complete();
+  }, 500);
+});
+
+console.log("Before calling the subscribe method");
+
+asyncWelcomeObservable$.subscribe(console.log);
+
+console.log("After calling the subscribe method");
+
+// console output:
+// Before calling the subscribe method
+// In Observable producer fn
+// After calling the subscribe method
+// Welcome!
+
+/**
+ * Synchronous Observable
+ */
+
+const welcomeObservable$ = new Observable(observer => {
+  console.log("In Observable producer fn");
+
+  observer.next("Welcome!");
+  observer.complete();
+});
+
+console.log("Before calling the subscribe method");
+
+welcomeObservable$.subscribe(console.log);
+
+console.log("After calling the subscribe method");
+
+// console output:
+// Before calling the subscribe method
+// In Observable producer fn
+// Welcome!
+// After calling the subscribe method
