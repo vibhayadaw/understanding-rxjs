@@ -1,5 +1,7 @@
 // RxJS v6+
-import { of } from 'rxjs';
+import {  of } from 'rxjs';
+import {  map } from 'rxjs/operators';
+
 //emits any number of provided values in sequence
 const source1 = of(1, 2, 3, 4, 5);
 //output: 1,2,3,4,5
@@ -11,3 +13,7 @@ const source2 = of({ name: 'Brian' },10, [1, 2, 3], function hello() {
   });
   //output: {name: 'Brian'}, [1,2,3], function hello() { return 'Hello' }
   const subscribe = source2.subscribe(val => console.log(val));
+
+
+  /**example of map */
+  const numbers$ = map(x => x * 10 )(of(1, 2, 3)).subscribe((v) => console.log(`value: ${v}`));
