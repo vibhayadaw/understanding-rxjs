@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 const welcomePromise = new Promise(resolve => {
     console.log("In Promise executor fn");
   
-    resolve("Welcome!");
+    resolve("Welcome! Promise");
   });
   
   console.log("Before calling the then method");
@@ -25,7 +25,7 @@ const welcomePromise = new Promise(resolve => {
   const welcomeObservable$ = new Observable(observer => {
     console.log("In Observable producer fn");
   
-    observer.next("Welcome!");
+    observer.next("Welcome! Observer");
     observer.complete();
   });
   
@@ -45,15 +45,15 @@ const welcomePromise = new Promise(resolve => {
  */
 
 const newsPromise = new Promise(resolve => {
-    resolve("Sports news");
-    resolve("Politics news");
+    resolve("Promise! Sports news");
+    resolve("Promise! Politics news");
   });
   
 newsPromise.then(console.log); // Prints 'Sports news'
 
 const news$ = new Observable(observer => {
-  observer.next("Sports news");
-  observer.next("Politics news");
+  observer.next("Observable! Sports news");
+  observer.next("Observable! Politics news");
 });
 
 news$.subscribe(console.log); // Prints 'Politics news \n Sports news'

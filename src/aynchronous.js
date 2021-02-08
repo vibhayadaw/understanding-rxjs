@@ -2,19 +2,19 @@
 import { Observable } from 'rxjs';
 
 // NORMAL
-const myPromise = new Promise((resolve) => {
-  setTimeout(() => resolve('Normal'), 3000);
-});
-myPromise.then(o => console.log(o));
+// const myPromise = new Promise((resolve) => {
+//   setTimeout(() => resolve('Normal'), 3000);
+// });
+// myPromise.then(o => console.log(o));
 
-// RXJS
-const myObservable = Observable.create((observer) => {
-  setTimeout(() => {
-    observer.next('RxJS');
-    observer.complete();
-  }, 3000);
-});
-myObservable.subscribe(o => console.log(o));
+// // RXJS
+// const myObservable$ = Observable.create((observer) => {
+//   setTimeout(() => {
+//     observer.next('RxJS');
+//     observer.complete();
+//   }, 3000);
+// });
+// myObservable$.subscribe(o => console.log(o));
 
 
 /**
@@ -26,7 +26,7 @@ myObservable.subscribe(o => console.log(o));
 const welcomePromise = new Promise(resolve => {
   console.log("In Promise executor fn");
 
-  resolve("Welcome!");
+  resolve("Welcome! Promise");
 });
 
 console.log("Before calling the then method");
@@ -47,16 +47,16 @@ const asyncWelcomeObservable$ = new Observable(observer => {
   console.log("In Observable producer fn");
 
   setTimeout(() => {
-    observer.next("Welcome!");
+    observer.next("Asynchronous: Welcome!");
     observer.complete();
   }, 500);
 });
 
-console.log("Before calling the subscribe method");
+console.log("Asynchronous: Before calling the subscribe method Async Observable");
 
 asyncWelcomeObservable$.subscribe(console.log);
 
-console.log("After calling the subscribe method");
+console.log("Asynchronous: After calling the subscribe method");
 
 // console output:
 // Before calling the subscribe method
@@ -69,17 +69,17 @@ console.log("After calling the subscribe method");
  */
 
 const welcomeObservable$ = new Observable(observer => {
-  console.log("In Observable producer fn");
+  console.log("Synchronous: In Observable producer fn");
 
-  observer.next("Welcome!");
+  observer.next("Synchronous: Welcome!");
   observer.complete();
 });
 
-console.log("Before calling the subscribe method");
+console.log("Synchronous: Before calling the subscribe method");
 
 welcomeObservable$.subscribe(console.log);
 
-console.log("After calling the subscribe method");
+console.log("Synchronous: After calling the subscribe method");
 
 // console output:
 // Before calling the subscribe method

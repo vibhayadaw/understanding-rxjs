@@ -59,4 +59,4 @@ const example = forkJoin({
  *   sourceFive: "Promise Resolved: RESULT"
  * }
  */
-const subscribe = example.subscribe(val => console.log(val));
+const subscribe = example.subscribe(val => console.log("Only after received all the responses",val));
